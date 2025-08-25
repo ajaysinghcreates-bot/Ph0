@@ -1,0 +1,134 @@
+/* Corporate Blue Theme */
+
+:root {
+    --primary-color: #2a57a4; /* A deep, professional blue */
+    --secondary-color: #e9ecef;
+    --background-color: #f4f7f6; /* A very light, clean grey */
+    --sidebar-bg: #ffffff;
+    --sidebar-width: 260px;
+    --text-color: #333333;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    font-size: 15px;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    min-width: var(--sidebar-width);
+    max-width: var(--sidebar-width);
+    background: var(--sidebar-bg);
+    color: #fff;
+    transition: all 0.3s;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.sidebar .sidebar-header {
+    padding: 20px;
+    background: var(--primary-color);
+    text-align: center;
+}
+
+.sidebar .sidebar-header h3 {
+    color: #fff;
+    font-weight: 600;
+}
+
+.sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+.sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+.sidebar ul li a {
+    padding: 15px 20px;
+    font-size: 1.1em;
+    display: block;
+    color: #555;
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.sidebar ul li a:hover {
+    color: var(--primary-color);
+    background: #f8f9fa;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: var(--primary-color);
+    background: #e9ecef;
+}
+
+/* Main Content Styles */
+.content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+/* Card & Component Overrides */
+.card {
+    border: none;
+    box-shadow: var(--card-shadow);
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.navbar {
+    padding: 15px 10px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        margin-left: -260px;
+    }
+    .sidebar.active {
+        margin-left: 0;
+    }
+    .wrapper { /* Allow content to wrap under sidebar */
+        display: block;
+    }
+}
