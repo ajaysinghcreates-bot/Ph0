@@ -4,14 +4,14 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/subjects.php');
+        header('Location: ../admin/subjects.php');
         exit();
     }
 
@@ -30,13 +30,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         set_flash_message('Subject added successfully', 'success');
-        header('Location: ../public/subjects.php');
+        header('Location: ../admin/subjects.php');
     } else {
         set_flash_message('Failed to add subject', 'danger');
-        header('Location: ../public/subject_add.php');
+        header('Location: ../admin/subject_add.php');
     }
 } else {
-    header('Location: ../public/subject_add.php');
+    header('Location: ../admin/subject_add.php');
     exit();
 }
 ?>

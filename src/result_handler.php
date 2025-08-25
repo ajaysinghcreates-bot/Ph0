@@ -4,14 +4,14 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/exams.php');
+        header('Location: ../admin/exams.php');
         exit();
     }
 
@@ -39,15 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         $db->commit();
         set_flash_message('Results saved successfully', 'success');
-        header('Location: ../public/exams.php');
+        header('Location: ../admin/exams.php');
     } catch (Exception $e) {
         $db->rollBack();
         set_flash_message('Failed to save results', 'danger');
-        header('Location: ../public/exam_results.php?exam_id=' . $exam_id);
+        header('Location: ../admin/exam_results.php?exam_id=' . $exam_id);
     }
 
 } else {
-    header('Location: ../public/exams.php');
+    header('Location: ../admin/exams.php');
     exit();
 }
 ?>

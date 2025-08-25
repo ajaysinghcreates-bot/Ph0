@@ -4,14 +4,14 @@ require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/fees.php');
+        header('Location: ../admin/fees.php');
         exit();
     }
 
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $payment_date = !empty($_POST['payment_date']) ? $_POST['payment_date'] : null;
 
     if (empty($class_id)) {
-        header('Location: ../public/fee_add.php?error=Student is not assigned to a class.');
+        header('Location: ../admin/fee_add.php?error=Student is not assigned to a class.');
         exit();
     }
 
@@ -43,13 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         set_flash_message('Fee payment added successfully', 'success');
-        header('Location: ../public/fees.php');
+        header('Location: ../admin/fees.php');
     } else {
         set_flash_message('Failed to add fee payment', 'danger');
-        header('Location: ../public/fee_add.php');
+        header('Location: ../admin/fee_add.php');
     }
 } else {
-    header('Location: ../public/fee_add.php');
+    header('Location: ../admin/fee_add.php');
     exit();
 }
 ?>

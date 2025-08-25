@@ -1,18 +1,18 @@
 <?php
 session_start();
 require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/src/utils.php';
+require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/expenses.php');
+        header('Location: ../admin/expenses.php');
         exit();
     }
 
@@ -37,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         set_flash_message('Expense updated successfully', 'success');
-        header('Location: ../public/expenses.php');
+        header('Location: ../admin/expenses.php');
     } else {
         set_flash_message('Failed to update expense', 'danger');
-        header('Location: ../public/expense_edit.php?id=' . $id);
+        header('Location: ../admin/expense_edit.php?id=' . $id);
     }
 } else {
-    header('Location: ../public/expenses.php');
+    header('Location: ../admin/expenses.php');
     exit();
 }
 ?>

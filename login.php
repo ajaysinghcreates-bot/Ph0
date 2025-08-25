@@ -2,7 +2,7 @@
 require_once __DIR__ . '/templates/header.php';
 
 if (isset($_SESSION['user_id'])) {
-    header('Location: dashboard.php');
+    header('Location: admin/dashboard.php');
     exit();
 }
 
@@ -18,7 +18,7 @@ if (isset($_GET['error'])) {
                 <h4>Admin Login</h4>
             </div>
             <div class="card-body">
-                <form action="auth.php" method="POST">
+                <form action="admin/auth.php" method="POST">
                     <?php csrf_field(); ?>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>

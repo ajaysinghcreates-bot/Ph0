@@ -1,18 +1,18 @@
 <?php
 session_start();
 require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/src/utils.php';
+require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id'])) {
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/classes.php');
+        header('Location: ../admin/classes.php');
         exit();
     }
 
@@ -31,13 +31,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         set_flash_message('Class updated successfully', 'success');
-        header('Location: ../public/classes.php');
+        header('Location: ../admin/classes.php');
     } else {
         set_flash_message('Failed to update class', 'danger');
-        header('Location: ../public/class_edit.php?id=' . $id);
+        header('Location: ../admin/class_edit.php?id=' . $id);
     }
 } else {
-    header('Location: ../public/classes.php');
+    header('Location: ../admin/classes.php');
     exit();
 }
 ?>

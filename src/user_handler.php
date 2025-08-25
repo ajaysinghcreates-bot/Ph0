@@ -1,26 +1,26 @@
 <?php
 session_start();
 require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/src/utils.php';
+require_once __DIR__ . '/utils.php';
 require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
     set_flash_message('Unauthorized access', 'danger');
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/users.php');
+        header('Location: ../admin/users.php');
         exit();
     }
 
     // Validation
     if ($_POST['password'] !== $_POST['confirm_password']) {
         set_flash_message('Passwords do not match.', 'danger');
-        header('Location: ../public/user_add.php');
+        header('Location: ../admin/user_add.php');
         exit();
     }
 
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $check_stmt->execute();
     if ($check_stmt->rowCount() > 0) {
         set_flash_message('Username or email already exists.', 'danger');
-        header('Location: ../public/user_add.php');
+        header('Location: ../admin/user_add.php');
         exit();
     }
 
@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         set_flash_message('User added successfully', 'success');
-        header('Location: ../public/users.php');
+        header('Location: ../admin/users.php');
     } else {
         set_flash_message('Failed to add user', 'danger');
-        header('Location: ../public/user_add.php');
+        header('Location: ../admin/user_add.php');
     }
 } else {
-    header('Location: ../public/user_add.php');
+    header('Location: ../admin/user_add.php');
     exit();
 }
 ?>

@@ -5,14 +5,14 @@ require_once __DIR__ . '/Database.php';
 
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Admin') {
     set_flash_message('Unauthorized access', 'danger');
-    header('Location: ../public/login.php');
+    header('Location: ../login.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!validate_csrf_token($_POST['csrf_token'])) {
         set_flash_message('CSRF token mismatch.', 'danger');
-        header('Location: ../public/teacher_assignments.php');
+        header('Location: ../admin/teacher_assignments.php');
         exit();
     }
 
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $subject_ids = $_POST['subject_ids'];
 
     if (empty($teacher_id) || empty($subject_ids)) {
-        header('Location: ../public/teacher_assignments.php?error=Teacher and subjects are required.');
+        header('Location: ../admin/teacher_assignments.php?error=Teacher and subjects are required.');
         exit();
     }
 
@@ -51,17 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $db->commit();
 
         set_flash_message('Assignments saved successfully', 'success');
-        header('Location: ../public/teacher_assignments.php');
+        header('Location: ../admin/teacher_assignments.php');
 
     } catch (Exception $e) {
         // Roll back the transaction if something failed
         $db->rollBack();
         set_flash_message('Failed to save assignments: ' . $e->getMessage(), 'danger');
-        header('Location: ../public/teacher_assignments.php');
+        header('Location: ../admin/teacher_assignments.php');
     }
 
 } else {
-    header('Location: ../public/teacher_assignments.php');
+    header('Location: ../admin/teacher_assignments.php');
     exit();
 }
 ?>

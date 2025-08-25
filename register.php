@@ -25,7 +25,7 @@ $correct_passcode = $passcode_submitted && $_POST['passcode'] === '623264';
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 <?php else: ?>
-                    <form action="../src/register_handler.php" method="POST">
+                    <form action="src/register_handler.php" method="POST">
                         <?php csrf_field(); ?>
                         <input type="hidden" name="passcode" value="623264">
                         <div class="row">
